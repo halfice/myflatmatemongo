@@ -13,9 +13,9 @@ app.use('/users', userRoutes);
 //https://dev.to/lenmorld/rest-api-with-mongodb-atlas-cloud-node-and-express-in-10-minutes-2ii1
 userRoutes.route('/').get(function (req, response) {
   const MongoClient = require('mongodb').MongoClient;
-  //pasword : - > wwmts3kQNkDAqDJZ
+
   var DATABASE_NAME="myflatemate";
-  const uri = "mongodb+srv://flatmateadmin:wwmts3kQNkDAqDJZ@myflatematecluster-fedlk.gcp.mongodb.net/test?retryWrites=true&w=majority";
+  const uri = "mongodb+srv://flatmateadmin:password@myflatematecluster-fedlk.gcp.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(uri, { useNewUrlParser: true });
   client.connect(err => {
     database = client.db(DATABASE_NAME);
