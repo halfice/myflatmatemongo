@@ -3,7 +3,9 @@
 // mongodb driver
 const MongoClient = require("mongodb").MongoClient;
 
-const dbConnectionUrl = "CONNECTION_STRING_FROM_ATLAS";
+const uri = "mongodb+srv://flatmateadmin:password@myflatematecluster-fedlk.gcp.mongodb.net/test?retryWrites=true&w=majority";
+
+const dbConnectionUrl = uri;
 
 function initialize(
     dbName,
@@ -24,6 +26,8 @@ function initialize(
         }
     });
 }
+
+
 
 module.exports = {
     initialize
