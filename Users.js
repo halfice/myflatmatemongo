@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-var Users=express.Router();
+var Users = express.Router();
 
 // @route GET api/books/test
 // @description tests books route
@@ -21,28 +21,56 @@ Users.get('/', (req, res) => res.send('book route testing!'));
 // @route GET api/books/:id
 // @description Get single book by id
 // @access Public
-Users.get('/:id', (req, res) => {
- // Book.findById(req.params.id)
-   // .then(book => res.json(book))
-    //.catch(err => res.status(404).json({ nobookfound: 'No Book found' }));
-    var itemId = req.body.email;
-    console.log(itemId);
-    const db = require("./db");
-    const dbName = "flatmate";
-    const collectionName = "users";
-    db.initialize(dbName, collectionName, function(dbCollection) { // successCallback
-      var itemId = req.body.email;
-      console.log(itemId);
-      dbCollection.findOne({ 'email': itemId }, (error, result) => {
-        if (error) throw error;
-        // return item
-        res.json(result);
-    });
-    }, function(err) { // failureCallback
-      throw (err);
-    });
-    
+Users.post('/:id', (req, res) => {
 
+ 
+  const db = require("./db");
+  const dbName = "flatmate";
+  const collectionName = "users";
+  db.initialize(dbName, collectionName, function (dbCollection) { // successCallback
+    var itemId = req.body.email;
+    
+  //  console.log("this is item-"+itemId);
+ // dbCollection.findOne({ 'email': itemId }, (error, result) => {
+    dbCollection.findOne({ 'email': 'axix.szabist@gmail.com' }, (error, result) => {
+      if (error) throw error;
+      // return item
+     // console.log(result);
+     // console.log(error);
+      res.json(result);
+    });
+  }, function (err) { // failureCallback
+    throw (err);
+  });
+
+
+
+
+});
+
+Users.post('/register', (req, res) => {
+  var itememail = req.body.email;
+  var itemname = req.body.userid;
+  var itemphone = req.body.phone;
+  var itempassword = req.body.password;
+
+  const db = require("./db");
+  const dbName = "flatmate";
+  const collectionName = "users";
+  db.initialize(dbName, collectionName, function (dbCollection) { // successCallback
+    var itememail = req.body.email;
+    var itemname = req.body.name;
+    var itemphone = req.body.phone;
+    var itempassword = req.body.password;
+    dbCollection.insert({ 'userid': itemname, 'email': itememail, 'password': itempassword, 'active': '1', }, (error, result) => {
+      var _userId = result["ops"][0]["_id"];
+      if (error) throw error;
+      // return item
+      res.json(_userId);
+    });
+  }, function (err) { // failureCallback
+    throw (err);
+  });
 
 
 });
